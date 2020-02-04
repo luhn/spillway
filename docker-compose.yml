@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  spillway:
+    build: .
+    command: ["gunicorn:8000", "1"]
+    links:
+      - gunicorn
+    ports:
+      - "8080:8000"
+    environment:
+      - LOG_ADDRESS=stdout
+
+  gunicorn:
+    build: sampleapp
