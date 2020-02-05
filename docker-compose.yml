@@ -13,3 +13,5 @@ services:
 
   gunicorn:
     build: sampleapp
+    environment:
+      - PYTHONUNBUFFERED=1
