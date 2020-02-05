@@ -31,7 +31,7 @@ defaults
 	timeout queue ${QUEUE_TIMEOUT:-5s}
 
 frontend http
-	bind *:8000
+	bind *:${PORT:-8000}
 	acl is_healthcheck path ${HEALTHCHECK_PATH:-/healthcheck}
 	use_backend healthcheck if is_healthcheck
 	default_backend app
