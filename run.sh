@@ -14,7 +14,7 @@ fi
 if [ $LOG_ADDRESS ]; then
 	LOG="
 	log $LOG_ADDRESS local0
-	log-format \"${LOG_FORMAT:-"%b %ST %sq %Tw/%Tr"}\"
+	log-format \"${LOG_FORMAT:-"%b %ST %bq %Tw/%Tr"}\"
 	"
 fi
 
