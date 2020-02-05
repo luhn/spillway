@@ -2,13 +2,18 @@ from time import sleep
 
 
 def application(environ, start_response):
-    sleep_str = environ['PATH_INFO'].strip('/')
-    if sleep_str:
+    path = environ['PATH_INFO'].strip('/')
+    if path == 'healthcheck':
+        status = '200 OK'
+        headers = [('Content-type', 'text/plain')]
+        start_response(status, headers)
+        return [b"OK\n"]
+    elif path:
         try:
-            sleep_float = float(sleep_str)
+            sleep_time = float(path)
         except ValueError:
             raise ValueError('Path must be an integer or float.')
-        sleep(sleep_float)
+        sleep(sleep_time)
     status = '200 OK'
     headers = [('Content-type', 'text/plain')]
     start_response(status, headers)
