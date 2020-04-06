@@ -1,9 +1,6 @@
 # Spillway
 
-Load shedding is a technique for resiliency in the face service overload, recommended by
-[Google](https://landing.google.com/sre/sre-book/chapters/addressing-cascading-failures/#xref_cascading-failure_load-shed-graceful-degredation)
-and [Amazon](https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/)
-for operating highly available systems.
+Load shedding is a technique for resiliency in the face service overload, recommended by Google [1] and Amazon [2] for operating highly available systems.
 When the incoming requests exceed the capacity of the servers,
 load shedding drops a portion of requests in order to maintain qualtiy of service for the remaining requests.
 
@@ -12,6 +9,9 @@ Requests are let through up to a set concurrency limit,
 after which they are queued up until capacity is available or the queue timeout is hit.
 Health checks can be configured to skip the queue,
 so they will succeed as long as the application is responding to HTTP requests
+
+1. [Site Reliability Engineering: How Google Runs Production Systems, Chapter 22: Addressing Cascading Failures](https://landing.google.com/sre/sre-book/chapters/addressing-cascading-failures/#xref_cascading-failure_load-shed-graceful-degredation)
+2. ["Using load shedding to avoid overload," Amazon Builders Library](https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/)
 
 ## Why Load Shed?
 
@@ -27,7 +27,7 @@ the number of useful requests being processed per second—The "goodput," as Ama
 
 If the client has retry logic (or impatient users mashing buttons), duplicate requests are sent, increasing the load and exacerbating the problem.
 Health checks may start to fail and "failing" machines are taken out of service, increasing the load on the remaining machines.
-Even if the initial spike in demand subsides, these adverse conditions may continue to cause.
+Even if the initial spike in demand subsides, these adverse conditions may cause the service overload to persist.
 
 With Spillway's load shedding, requests queued for too long error out.
 Not all requests are successful, but the requests that are successful return quickly enough to be useful.
@@ -41,13 +41,18 @@ I personally have had demand spikes on modestly-sized services turn into full-bl
 Spillway can be found in Docker Hub as [luhn/spillway:0.1](https://hub.docker.com/r/luhn/spillway).
 
 Spillway requires two command-line arguments:
-The hostname and port of the app server and the concurrency level.
+
+* The address of the app server.
+* The concurrency level.
 
 For example, you might run Spillway with the following Docker command:
 
 ```bash
-docker run -p 8000:8000 --link app luhn/spillway app:8080
+docker run -p 8000:8000 --link app luhn/spillway app:8080 3
 ```
+
+Spillway will accept requests on port 8000 and forward them to `app:8080`.
+If more than three requests are inflight at a time, additional requests will be queued until availability opens up.
 
 ## Configuration
 
@@ -63,6 +68,7 @@ Spillway can be configured via environment variables.
 ## Logging
 
 Requests can be logged by setting the `LOG_ADDRESS` environment variable to a syslog server.
+Can also be set to `stdout` or `stderr`.
 
 The log format is:
 
@@ -83,7 +89,7 @@ app 200 3 14/34
 ```
 
 The log format can be customized by setting the `LOG_FORMAT` environment variable.
-See the [HAProxy docs](http://cbonte.github.io/haproxy-dconv/2.2/configuration.html#8.2.4)
+See the [HAProxy docs](http://cbonte.github.io/haproxy-dconv/2.1/configuration.html#8.2.4)
 for how to write a custom log format.
 
 ## Limitations
