@@ -18,7 +18,7 @@ if [ $LOG_ADDRESS ]; then
 	"
 fi
 
-cat <<EOF > haproxy.cfg
+cat <<EOF > /conf/haproxy.cfg
 
 global
 	maxconn ${MAX_CONNECTIONS:-2000}
@@ -45,4 +45,4 @@ backend healthcheck
 
 EOF
 
-haproxy -f haproxy.cfg
+haproxy -f /conf/haproxy.cfg

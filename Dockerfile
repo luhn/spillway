@@ -1,8 +1,7 @@
 FROM haproxy:2.1
 
-RUN useradd --create-home --home /haproxy haproxy
+RUN mkdir /conf && chmod -R 700 /conf && chown -R haproxy:haproxy /conf
 USER haproxy
-WORKDIR /haproxy
 EXPOSE 8000
 
 COPY run.sh /
