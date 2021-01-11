@@ -1,4 +1,4 @@
-FROM haproxy:2.1
+FROM haproxy:2.2
 
 RUN mkdir /conf && chmod -R 700 /conf && chown -R haproxy:haproxy /conf
 USER haproxy
