@@ -38,8 +38,8 @@ I personally have had demand spikes on modestly-sized services turn into full-bl
 
 ## Getting Started
 
-Spillway can be found in Docker Hub as [luhn/spillway:0.1](https://hub.docker.com/r/luhn/spillway)
-and AWS ECR as [public.ecr.aws/luhn/spillway:0.1](https://gallery.ecr.aws/luhn/spillway).
+Spillway can be found in Docker Hub as [luhn/spillway:1.0](https://hub.docker.com/r/luhn/spillway)
+and AWS ECR as [public.ecr.aws/luhn/spillway:1.0](https://gallery.ecr.aws/luhn/spillway).
 
 Spillway requires two command-line arguments:
 
