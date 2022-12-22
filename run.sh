@@ -27,7 +27,7 @@ defaults
 	mode http
 	timeout connect 5s
 	timeout client 30s
-	timeout server 30s
+	timeout server ${SERVER_TIMEOUT:-30s}
 	timeout queue ${QUEUE_TIMEOUT:-5s}
 
 frontend http

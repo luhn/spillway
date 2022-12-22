@@ -61,6 +61,7 @@ Spillway can be configured via environment variables.
 
 * `MAX_CONNECTIONS` — The maximum number of connections that can be open at a single time.  Defaults to 2000.
 * `QUEUE_TIMEOUT` — The time in milliseconds before a request times out in the queue.  Defaults to five seconds.
+* `SERVER_TIMEOUT` — The time in milliseconds a request can be processed by the server before it times out.  Defaults to 30 seconds.
 * `PORT` — The port to bind to.  Defaults to 8000.
 * `HEALTHCHECK_PATH` — Requests matching this path will skip the queue.  Defaults to `/healthcheck`.
 * `LOG_ADDRESS` — A syslog server to log to.  See below for more details.
