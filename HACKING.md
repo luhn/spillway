@@ -8,7 +8,7 @@ If the path is an integer (e.g. `/1`) it will wait that many seconds before retu
 
 ## Releasing
 
-To create a new release, run the following commands with the appropriate versions.
+To create a new release, run the following commands with both the latest version and the `latest` tag.
 
 ```
 docker buildx build --platform linux/amd64,linux/arm64 --tag luhn/spillway:1.0 --push .
