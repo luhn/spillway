@@ -11,11 +11,13 @@ if [ -z "$2" ]; then
 	exit 1
 fi
 
-if [ $LOG_ADDRESS ]; then
-	LOG="
-	log $LOG_ADDRESS local0
-	log-format \"${LOG_FORMAT:-"%b %ST %bq %Tw/%Tr"}\"
-	"
+if [ "$LOG_ADDRESS" ]; then
+	LOG="log $LOG_ADDRESS format rfc5424 local0"
+	if [ "$LOG_FORMAT" ]; then
+		LOG_FORMAT="log-format \"${LOG_FORMAT}\""
+	else
+		LOG_FORMAT="option httplog"
+	fi
 fi
 
 cat <<EOF > /usr/local/etc/haproxy/haproxy.cfg
@@ -36,6 +38,7 @@ frontend http
 	use_backend healthcheck if is_healthcheck
 	default_backend app
 	$LOG
+	$LOG_FORMAT
 
 backend app
 	server main $1 maxconn $2

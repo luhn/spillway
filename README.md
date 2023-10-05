@@ -73,26 +73,9 @@ Spillway can be configured via environment variables.
 Requests can be logged by setting the `LOG_ADDRESS` environment variable to a syslog server.
 Can also be set to `stdout` or `stderr`.
 
-The log format is:
-
-```
-[backend] [status] [depth] [queue time]/[response time]
-```
-
-* *backend* — One of `app` or `healthcheck`, indicating if it was a standard request or a healthcheck.
-* *status* — The HTTP status code returned.
-* *depth* — The queue depth, i.e. the number of requests processed before this one.
-* *queue time* — The time in milliseconds the request waited in the queue.
-* *response time* — The time in milliseconds for the application to respond.
-
-For example:
-
-```
-app 200 3 14/34
-```
-
+By default, the log format is HAProxy's HTTP log format, which is documented [here](http://docs.haproxy.org/2.6/configuration.html#8.2.3).
 The log format can be customized by setting the `LOG_FORMAT` environment variable.
-See the [HAProxy docs](http://cbonte.github.io/haproxy-dconv/2.1/configuration.html#8.2.4)
+See the [HAProxy docs](http://docs.haproxy.org/2.6/configuration.html#8.2.6)
 for how to write a custom log format.
 
 ## Limitations

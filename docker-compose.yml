@@ -9,7 +9,7 @@ services:
     ports:
       - "8080:8000"
     environment:
-      - LOG_ADDRESS=stdout
+      LOG_ADDRESS: stdout
 
   gunicorn:
     build: sampleapp
