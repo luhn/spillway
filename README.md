@@ -38,8 +38,8 @@ I personally have had demand spikes on modestly-sized services turn into full-bl
 
 ## Getting Started
 
-Spillway can be found in Docker Hub as [luhn/spillway](https://hub.docker.com/r/luhn/spillway)
-and AWS ECR as [public.ecr.aws/luhn/spillway](https://gallery.ecr.aws/luhn/spillway).
+Spillway can be found in Docker Hub as [luhn/spillway:2](https://hub.docker.com/r/luhn/spillway)
+and AWS ECR as [public.ecr.aws/luhn/spillway:2](https://gallery.ecr.aws/luhn/spillway).
 You can download the source code from [github.com/luhn/spillway](https://github.com/luhn/spillway/).
 
 Spillway requires two command-line arguments:
@@ -50,7 +50,7 @@ Spillway requires two command-line arguments:
 For example, you might run Spillway with the following Docker command:
 
 ```bash
-docker run -p 8000:8000 --link app luhn/spillway app:8080 3
+docker run -p 8000:8000 --link app luhn/spillway:2 app:8080 3
 ```
 
 Spillway will accept requests on port 8000 and forward them to `app:8080`.
